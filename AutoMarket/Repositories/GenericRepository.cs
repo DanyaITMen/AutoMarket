@@ -6,8 +6,8 @@ namespace AutoMarket.Web.Repositories
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        private readonly AutoMarketDbContext _context;
-        private readonly DbSet<T> _dbSet;
+        protected readonly AutoMarketDbContext _context;
+        protected readonly DbSet<T> _dbSet;
 
         public GenericRepository(AutoMarketDbContext context)
         {

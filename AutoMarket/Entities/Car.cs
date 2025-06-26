@@ -15,12 +15,12 @@ namespace AutoMarket.Web.Entities
         [MaxLength(500)]
         public string Description { get; set; }
         public int CategoryId { get; set; }
-        public Category Category { get; set; }
+        public Category? Category { get; set; }
         [Required, MaxLength(50)]
         public string Region { get; set; }
         [MaxLength(200)]
         public string ImageUrl { get; set; }
         public string UserId { get; set; }
-        public User User { get; set; }
+        public User? User { get; set; }
     }
 }
