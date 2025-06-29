@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
+using AutoMarket.Repositories.Interfaces;
 using AutoMarket.Web.DTOs.Car;
 using AutoMarket.Web.Entities;
-using AutoMarket.Web.Repositories;
 using AutoMarket.Web.Services.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMarket.Web.Helpers;      // <-- Додай
+using Microsoft.EntityFrameworkCore; // <-- Додай
+using System.Linq;
 
 namespace AutoMarket.Web.Services
 {
@@ -20,14 +23,6 @@ namespace AutoMarket.Web.Services
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-        }
-
-        public async Task<IEnumerable<CarDto>> GetAllAsync()
-        {
-            // 1. Отримати дані з бази
-            var cars = await _unitOfWork.Cars.GetAllAsync(c => c.Category, c => c.User);
-            // 2. Перетворити (змапити) їх в DTO і повернути
-            return _mapper.Map<IEnumerable<CarDto>>(cars);
         }
 
         public async Task<CarDto> GetByIdAsync(int id)
@@ -76,5 +71,59 @@ namespace AutoMarket.Web.Services
                 await _unitOfWork.SaveChangesAsync();
             }
         }
+
+        public async Task<IEnumerable<CarDto>> GetAllAsync(CarParameters carParameters)
+{
+    // Починаємо з IQueryable, щоб будувати запит динамічно
+    IQueryable<Car> query = _unitOfWork.Context.Cars
+        .Include(c => c.Category)
+        .Include(c => c.User);
+
+    // 1. ФІЛЬТРУВАННЯ
+    if (!string.IsNullOrEmpty(carParameters.Brand))
+    {
+        query = query.Where(c => c.Brand.ToLower() == carParameters.Brand.ToLower());
+    }
+    if (carParameters.MaxPrice.HasValue)
+    {
+        query = query.Where(c => c.Price <= carParameters.MaxPrice.Value);
+    }
+    if (carParameters.Year.HasValue)
+    {
+        query = query.Where(c => c.Year == carParameters.Year.Value);
+    }
+
+    // 2. СОРТУВАННЯ
+    if (!string.IsNullOrEmpty(carParameters.OrderBy))
+    {
+        switch (carParameters.OrderBy.ToLower())
+        {
+            case "price_desc":
+                query = query.OrderByDescending(c => c.Price);
+                break;
+            case "price_asc":
+                query = query.OrderBy(c => c.Price);
+                break;
+            case "year_desc":
+                query = query.OrderByDescending(c => c.Year);
+                break;
+            default:
+                query = query.OrderBy(c => c.Year);
+                break;
+        }
+    } else 
+    {
+        query = query.OrderByDescending(c => c.Id);
+    }
+
+    // 3. ПАГІНАЦІЯ
+    var cars = await query
+        .Skip((carParameters.PageNumber - 1) * carParameters.PageSize)
+        .Take(carParameters.PageSize)
+        .ToListAsync();
+        
+    return _mapper.Map<IEnumerable<CarDto>>(cars);
+}
+
     }
 }

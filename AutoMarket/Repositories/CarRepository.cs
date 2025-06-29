@@ -1,4 +1,5 @@
-﻿using AutoMarket.Web.Data;
+﻿using AutoMarket.Repositories.Interfaces;
+using AutoMarket.Web.Data;
 using AutoMarket.Web.Entities;
 using Microsoft.EntityFrameworkCore;
 

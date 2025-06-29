@@ -1,7 +1,9 @@
-﻿using AutoMarket.Web.Data;
+﻿using AutoMarket.Repositories.Interfaces;
+using AutoMarket.Web.Data;
 using AutoMarket.Web.Entities;
+using AutoMarket.Web.Repositories;
 
-namespace AutoMarket.Web.Repositories
+namespace AutoMarket.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
@@ -23,5 +25,7 @@ namespace AutoMarket.Web.Repositories
 
         public async Task<int> SaveChangesAsync() => await _context.SaveChangesAsync();
         public void Dispose() => _context.Dispose();
+
+        public AutoMarketDbContext Context => _context;
     }
 }

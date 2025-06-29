@@ -1,7 +1,7 @@
 ﻿using AutoMarket.Web.Entities;
 using System.Linq.Expressions;
 
-namespace AutoMarket.Web.Repositories
+namespace AutoMarket.Repositories.Interfaces
 {
     public interface ICarRepository : IGenericRepository<Car>
     {

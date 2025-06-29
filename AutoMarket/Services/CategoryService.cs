@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using AutoMarket.DTOs.Category;
+using AutoMarket.Repositories.Interfaces;
 using AutoMarket.Web.DTOs.Category;
 using AutoMarket.Web.Entities;
-using AutoMarket.Web.Repositories;
 using AutoMarket.Web.Services.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;

@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace AutoMarket.Web.Repositories
+namespace AutoMarket.Repositories.Interfaces
 {
     public interface IGenericRepository<T> where T : class
     {

@@ -1,3 +1,5 @@
+using AutoMarket.Repositories;
+using AutoMarket.Repositories.Interfaces;
 using AutoMarket.Web.Data;
 using AutoMarket.Web.Repositories;
 using AutoMarket.Web.Services;

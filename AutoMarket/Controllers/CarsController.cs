@@ -1,7 +1,9 @@
 ﻿using AutoMarket.Web.DTOs.Car;
+using AutoMarket.Web.Helpers;
 using AutoMarket.Web.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using AutoMarket.Web.Helpers;
 
 namespace AutoMarket.Web.Controllers
 {
@@ -22,13 +24,11 @@ namespace AutoMarket.Web.Controllers
         /// </summary>
         /// <returns>Список автомобілів у форматі DTO</returns>
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] CarParameters carParameters)
         {
-            // Просто викликаємо сервіс
-            var cars = await _carService.GetAllAsync();
+            var cars = await _carService.GetAllAsync(carParameters);
             return Ok(cars);
         }
-
         /// <summary>
         /// Отримує автомобіль за його унікальним ідентифікатором (ID).
         /// </summary>

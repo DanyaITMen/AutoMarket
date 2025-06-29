@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using AutoMarket.Repositories.Interfaces;
 using AutoMarket.Web.DTOs.User;
-using AutoMarket.Web.Repositories;
 using AutoMarket.Web.Services.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
