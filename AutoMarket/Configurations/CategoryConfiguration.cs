@@ -1,4 +1,4 @@
-﻿using AutoMarket.Web.Entities;
+﻿using AutoMarket.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
