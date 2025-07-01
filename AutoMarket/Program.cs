@@ -1,9 +1,8 @@
-using AutoMarket.Repositories;
-using AutoMarket.Repositories.Interfaces;
-using AutoMarket.Web.Data;
-using AutoMarket.Web.Repositories;
-using AutoMarket.Web.Services;
-using AutoMarket.Web.Services.Interfaces;
+using AutoMarket.DAL.Repositories;
+using AutoMarket.DAL.Repositories.Interfaces;
+using AutoMarket.DAL.Data;
+using AutoMarket.BLL.Services;
+using AutoMarket.BLL.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -35,7 +34,7 @@ builder.Services.AddSwaggerGen(options =>
     options.IncludeXmlComments(xmlPath);
 });
 
-builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddAutoMapper(typeof(Program), typeof(CarService));
 builder.Services.AddScoped<ICarService, CarService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IUserService, UserService>();

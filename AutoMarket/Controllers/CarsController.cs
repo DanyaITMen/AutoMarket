@@ -1,9 +1,8 @@
-﻿using AutoMarket.Web.DTOs.Car;
-using AutoMarket.Web.Helpers;
-using AutoMarket.Web.Services.Interfaces;
+﻿using AutoMarket.BLL.DTOs.Car;
+using AutoMarket.BLL.Helpers;
+using AutoMarket.BLL.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using AutoMarket.Web.Helpers;
 
 namespace AutoMarket.Web.Controllers
 {
